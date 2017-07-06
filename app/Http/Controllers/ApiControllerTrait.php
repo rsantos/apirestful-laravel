@@ -14,7 +14,7 @@ trait ApiControllerTrait
     public function index(Request $request)
     {
         $limit = $request->all()['limit'] ?? 20;
-        
+
         $order = $request->all()['order'] ?? null;
         if($order !== null){
             $order = explode(',', $order);
@@ -63,7 +63,7 @@ trait ApiControllerTrait
      */
     public function show($id)
     {
-        $result = $this->model->findOrFail($id);
+        $result = $this->model->with($this->relationships())->findOrFail($id);
         return response()->json($result);
     }
 
@@ -92,6 +92,14 @@ trait ApiControllerTrait
         $result = $this->model->findOrFail($id);
         $result->delete();
         return response()->json($result);
-    }   
+    }
+
+    protected function relationships()
+    {
+        if(isset($this->relationships)){
+            return $this->relationships;
+        }
+        return [];
+    }
 
 }

@@ -15,4 +15,5 @@ class BanksController extends Controller
     {
         $this->model = $model;
     }
+
 }
