@@ -63,7 +63,8 @@ class BanksController extends Controller
      */
     public function show($id)
     {
-        //
+        $result = \App\Bank::findOrFail($id);
+        return response()->json($result);
     }
 
     /**
