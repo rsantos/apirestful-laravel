@@ -38,6 +38,7 @@ trait ApiControllerTrait
                 return $query;
             })
             ->where($where)
+            ->with($this->relationships())
             ->paginate($limit);
 
         return response()->json($result);
